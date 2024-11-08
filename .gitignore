@@ -1,162 +1,111 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Alumnos</title>
+    <style>
+        /* Estilos de la página */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #003366;
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 10px 0;
+        }
+        form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #003366;
+            border-radius: 5px;
+            max-width: 300px;
+        }
+        button {
+            background-color: #003366;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        button:hover {
+            background-color: #00509e;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Registro de Alumnos</h1>
+    </header>
+    <main>
+        <form id="registroForm">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Ingresa el nombre" required>
 
-# C extensions
-*.so
+            <label for="grado">Grado:</label>
+            <input type="text" id="grado" name="grado" placeholder="Ingresa el grado" required>
 
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
+            <label for="grupo">Grupo:</label>
+            <input type="text" id="grupo" name="grupo" placeholder="Ingresa el grupo" required>
 
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
+            <label for="matricula">Matrícula:</label>
+            <input type="text" id="matricula" name="matricula" placeholder="Ingresa la matrícula" required>
 
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
+            <label for="email">Correo Electrónico:</label>
+            <input type="email" id="email" name="email" placeholder="Ingresa el correo" required>
 
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
-.pytest_cache/
-cover/
+            <label for="telefono">Número Telefónico:</label>
+            <input type="tel" id="telefono" name="telefono" placeholder="Ingresa el número telefónico" required>
 
-# Translations
-*.mo
-*.pot
+            <button type="submit">Registrar</button>
+            <button type="button" onclick="verLista()">Lista de Registro</button>
+        </form>
+    </main>
+    <script>
+        document.getElementById('registroForm').addEventListener('submit', function(event) {
+            event.preventDefault();
 
-# Django stuff:
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
+            const nombre = document.getElementById('nombre').value;
+            const grado = document.getElementById('grado').value;
+            const grupo = document.getElementById('grupo').value;
+            const matricula = document.getElementById('matricula').value;
+            const email = document.getElementById('email').value;
+            const telefono = document.getElementById('telefono').value;
+            const fechaRegistro = new Date().toLocaleString();
 
-# Flask stuff:
-instance/
-.webassets-cache
+            const alumno = { nombre, grado, grupo, matricula, email, telefono, fechaRegistro };
 
-# Scrapy stuff:
-.scrapy
+            const listaRegistro = JSON.parse(localStorage.getItem('listaRegistro')) || [];
+            listaRegistro.push(alumno);
+            localStorage.setItem('listaRegistro', JSON.stringify(listaRegistro));
 
-# Sphinx documentation
-docs/_build/
+            alert("Registro realizado correctamente.");
+            this.reset();
+        });
 
-# PyBuilder
-.pybuilder/
-target/
-
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# IPython
-profile_default/
-ipython_config.py
-
-# pyenv
-#   For a library or package, you might want to ignore these files since the code is
-#   intended to run in multiple environments; otherwise, check them in:
-# .python-version
-
-# pipenv
-#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
-#   However, in case of collaboration, if having platform-specific dependencies or dependencies
-#   having no cross-platform support, pipenv may install dependencies that don't work, or not
-#   install all needed dependencies.
-#Pipfile.lock
-
-# poetry
-#   Similar to Pipfile.lock, it is generally recommended to include poetry.lock in version control.
-#   This is especially recommended for binary packages to ensure reproducibility, and is more
-#   commonly ignored for libraries.
-#   https://python-poetry.org/docs/basic-usage/#commit-your-poetrylock-file-to-version-control
-#poetry.lock
-
-# pdm
-#   Similar to Pipfile.lock, it is generally recommended to include pdm.lock in version control.
-#pdm.lock
-#   pdm stores project-wide configurations in .pdm.toml, but it is recommended to not include it
-#   in version control.
-#   https://pdm.fming.dev/latest/usage/project/#working-with-version-control
-.pdm.toml
-.pdm-python
-.pdm-build/
-
-# PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
-__pypackages__/
-
-# Celery stuff
-celerybeat-schedule
-celerybeat.pid
-
-# SageMath parsed files
-*.sage.py
-
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-
-# Spyder project settings
-.spyderproject
-.spyproject
-
-# Rope project settings
-.ropeproject
-
-# mkdocs documentation
-/site
-
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# Pyre type checker
-.pyre/
-
-# pytype static type analyzer
-.pytype/
-
-# Cython debug symbols
-cython_debug/
-
-# PyCharm
-#  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
-#  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
-#  and can be added to the global gitignore or merged into this file.  For a more nuclear
-#  option (not recommended) you can uncomment the following to ignore the entire idea folder.
-#.idea/
+        // Abrir la lista en una nueva ventana
+        function verLista() {
+            window.open('lista.html', '_blank');
+        }
+    </script>
+</body>
+</html>
